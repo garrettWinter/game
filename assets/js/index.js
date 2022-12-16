@@ -1,32 +1,33 @@
 console.log ("Connected");
 let attackBtn = document.querySelector('#attackBtn')
-let healthDisplay = document.querySelector('#healthDisplay')
+let playerHealthDisplay = document.querySelector('#playerHealthDisplay')
+let encHealthDisplay = document.querySelector('#encHealthDisplay')
 
 /* Player Char */
 
 let playerStr = 5;
-let stam = 8;
-let agi = 6;
-let exp;
-let health = stam*2;
-healthDisplay.textContent = health;
-let level = 1;
-let armorClass = 2;
+let playerStam = 8;
+let playerAgi = 6;
+let playerExp;
+let playerHealth = playerStr*2;
+playerHealthDisplay.textContent = playerHealth;
+let playerLevel = 1;
+let playerArmorClass = 2;
 
-let attackDMG = 15;
-let critChance = 5;
+let playerAttackDMG = 15;
+let playerCritChance = 5;
 
-let hitRoll;
-let damage;
+let playerHitRoll;
+let playerDamage;
 
 /* Encounter Status */
 
 let encStr = 5;
 let encStam = 8;
 let encAgi = 6;
-let encExp;
-let encHealth = stam*2;
-// healthDisplay.textContent = health;
+// let encExp; // I dont think this could be needed
+let encHealth = encStr*2;
+encHealthDisplay.textContent = encHealth;
 let encLevel = 1;
 let encArmorClass = 2;
 
@@ -37,42 +38,42 @@ let enchitRoll;
 let encdamage; 
 
 
-attackBtn.addEventListener("click", attackOut);
+attackBtn.addEventListener("click", playerAttack);
 
-function attackOut (){
+function playerAttack (){
     
         // does it hit
-    hitRoll = Math.floor(Math.random()*100);
-    console.log ("Rolled a "+hitRoll);
+    playerHitRoll = Math.floor(Math.random()*100);
+    console.log ("Rolled a "+playerHitRoll);
         // for how much
-    if (hitRoll >  (100 - critChance)) {
-        damage = Math.floor(Math.random()*(attackDMG*2));
-        console.log("CRITICAL HIT, hit for "+damage);
-        mitigation(damage);
+    if (playerHitRoll >  (100 - playerCritChance)) {
+        playerDamage = Math.floor(Math.random()*(playerAttackDMG*2));
+        console.log("CRITICAL HIT, hit for "+playerDamage);
+        encMitigation(playerDamage);
         return;
     }
-    if (hitRoll >  65) {
-        damage = Math.floor(Math.random()*attackDMG);
-        console.log("HIT, hit for "+damage);
-        mitigation(damage);
+    if (playerHitRoll >  65) {
+        playerDamage = Math.floor(Math.random()*playerAttackDMG);
+        console.log("HIT, hit for "+playerDamage);
+        encMitigation(playerDamage);
         return;
     }
 }
 
-function mitigation(){
-    evadeChance = Math.floor(Math.random()*100);
-    if (evadeChance > (100-agi)){
-        damage = 0;
+function encMitigation(){
+    encEvadeChance = Math.floor(Math.random()*100);
+    if (encEvadeChance > (100-encAgi)){
+        playerDamage = 0;
         return;
     };
-    damage = (damage - armorClass);
-        if (damage <= 0) {
-        damage = 0;
+    playerDamage = (playerDamage - encArmorClass);
+        if (playerDamage <= 0) {
+            playerDamage = 0;
         console.log("damage neturalized");
     }
-    health = health - damage;
-    healthDisplay.textContent = health;
-    console.log("You have been hit for " + damage + ", your health is now " + health);
+    encHealth = encHealth - playerDamage;
+    encHealthDisplay.textContent = encHealth;
+    console.log("You have been hit for " + playerDamage + ", your health is now " + encHealth);
 }
 
 /* Pseduo Coding
