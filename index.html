@@ -1,17 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="has-background-dark">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vassao's Game</title>
-
-    <link rel="stylesheet" href="./assets/css/reset.css">
+    <!-- <link rel="stylesheet" href="./assets/css/reset.css"> -->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
-<div><button id="attackBtn">Attack</button></div>
-<div id="healthDisplay"></div>
+    <div class="columns">
+        <div class="column is-one-quarter ">
+            <div class="pl-3 mt-3 ml-3 box has-background-grey">
+                <button id="attackBtn">Attack</button>
+                <div>Player Health</div>
+                <div id="playerHealthDisplay"></div>
+                <div>Encounter Health</div>
+                <div id="encHealthDisplay"></div>
+            </div>
+        </div>
+        <div class="column is-one-half ">
+            <div class="pl-3 mt-3 box has-background-grey">
+                Encounter Box
+            </div>
+        </div>
+        <div class="column is-one-quarter ">
+            <div class="mt-3 mr-3 box has-background-grey">
+                Encounter Box
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/index.js"></script>
 </body>
+
 </html>
