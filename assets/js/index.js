@@ -1,7 +1,10 @@
 console.log ("Connected");
-let attackBtn = document.querySelector('#attackBtn')
-let playerHealthDisplay = document.querySelector('#playerHealthDisplay')
-let encHealthDisplay = document.querySelector('#encHealthDisplay')
+let attackBtn = document.querySelector('#attackBtn');
+let playerSlot1HealthDisplay = document.querySelector('#playerSlot1HealthDisplay');
+let playerSlot1MaxHealthDisplay = document.querySelector("#playerSlot1MaxHealthDisplay");
+let encSlot1HealthDisplay = document.querySelector('#encSlot1HealthDisplay');
+let encSlot1MaxHealthDisplay = document.querySelector("#encSlot1MaxHealthDisplay");
+let playerSlot1HealthBar = document.querySelector('#playerSlot1HealthBar');
 
 /* Player Char */
 
@@ -9,8 +12,9 @@ let playerStr = 5;
 let playerStam = 8;
 let playerAgi = 6;
 let playerExp;
-let playerHealth = playerStr*2;
-playerHealthDisplay.textContent = playerHealth;
+let playerHealth = playerStam*2;
+let playerMaxHealth = playerStam*2;
+playerSlot1HealthDisplay.textContent = playerHealth;
 let playerLevel = 1;
 let playerArmorClass = 2;
 
@@ -23,11 +27,12 @@ let playerDamage;
 /* Encounter Status */
 
 let encStr = 5;
-let encStam = 8;
+let encStam = 5;
 let encAgi = 6;
 // let encExp; // I dont think this could be needed
-let encHealth = encStr*2;
-encHealthDisplay.textContent = encHealth;
+let encHealth = encStam*2;
+let encMaxHealth = encStam*2;
+encSlot1HealthDisplay.textContent = encHealth;
 let encLevel = 1;
 let encArmorClass = 2;
 
@@ -39,6 +44,24 @@ let encDamage;
 
 
 attackBtn.addEventListener("click", playerAttack);
+
+function displayRefresh(){
+    playerSlot1HealthBar.setAttribute('value',(playerHealth));
+    playerSlot1HealthBar.setAttribute('max',(playerMaxHealth));
+    playerSlot1MaxHealthDisplay.textContent = playerMaxHealth;
+    playerSlot1HealthDisplay.textContent = playerHealth;
+
+    encSlot1HealthBar.setAttribute('value',(encHealth));
+    encSlot1HealthBar.setAttribute('max',(encMaxHealth));
+    encSlot1MaxHealthDisplay.textContent = encMaxHealth;
+    encSlot1HealthDisplay.textContent = encHealth;
+
+};
+
+function init (){
+    displayRefresh();
+}
+
 
 function playerAttack (){
     console.log("playerAttack Ran");
@@ -77,14 +100,16 @@ function encMitigation() {
         playerDamage = 0;
         console.log("Players damage neturalized by the encounters armor class");
         encHealth = encHealth - playerDamage;
-        encHealthDisplay.textContent = encHealth;
+        encSlot1HealthDisplay.textContent = encHealth;
         encAttack();
+        displayRefresh();
         return;
     }
     encHealth = encHealth - playerDamage;
-    encHealthDisplay.textContent = encHealth;
+    encSlot1HealthDisplay.textContent = encHealth;
     console.log("Player has hit the encounter for " + playerDamage + ", their health is now " + encHealth);
     encAttack();
+    displayRefresh();
 }
 
 function encAttack (){
@@ -120,13 +145,16 @@ function playerMitigation(){
             encDamage = 0;
         console.log("Encounters damage was absorbed by the players armor.");
         playerHealth = playerHealth - encDamage;
-        playerHealthDisplay.textContent = playerHealth;
+        playerSlot1HealthDisplay.textContent = playerHealth;
         return;
     }
     playerHealth = playerHealth - encDamage;
-    playerHealthDisplay.textContent = playerHealth;
+    playerSlot1HealthDisplay.textContent = playerHealth;
     console.log("Encounter has hit Player hit for " + encDamage + ", their health is now " + playerHealth);
+    displayRefresh();
 }
+
+init ();
 
 /* Pseduo Coding
  combat Order of operation
